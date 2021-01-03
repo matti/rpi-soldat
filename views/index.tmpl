@@ -14,25 +14,61 @@
   }
 </style>
 
-<h1>iPXE booted rpi4 flatcar</h1>
+<h1>Stateless Ephemeral RPi4 k3s cluster</h1>
 
-<h2>This hostname: {{ .hostname }}</h1>
-<h2>This temperature now: {{ .temperature }}c</h2>
-
-<h3>All nodes in the cluster currently</h3>
 <ul>
-{{range .nodes}}
-  <li>{{.Name}}</li>
-{{end}}
+  <li>All <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/">raspberry pi 4 8gb</a> nodes ...</li>
+  <li>... are powered with <a href="https://www.ui.com/unifi-switching/unifi-switch-8/">140W PoE switch</a></li>
+  <li>... all nodes boot with <a href="https://ipxe.org/">iPXE</a></li>
+  <li>... loading <a href="https://www.flatcar-linux.org/">flatcar linux</a> in <a href="https://kinvolk.io/docs/flatcar-container-linux/latest/bare-metal/booting-with-ipxe">memory</a></li>
+  <li>... joining a <a href="https://k3s.io/">k3s<a> cluster master running in <a href="https://www.scaleway.com/en/">scaleway</a></li>
+  <li>... exposing this page with a public LoadBalancer through <a href="https://www.wireguard.com">wireguard vpn</a></li>
+  <li>... while running behind NAT</h1>
+  <li>... and every power cycle from the PoE switch starts the iPXE boot again making the node <strong>fresh</strong> again</h1>
 </ul>
+
+<fieldset>
+  <legend>This node</legend>
+  <h3>hostname: {{ .hostname }}</h3>
+  <h3>temperature now: {{ .temperature }}c</h3>
+
+  <button onclick="window.location.reload()">Reload!</button>
+</fieldset>
+<br/>
+<fieldset>
+  <legend>Nodes in the cluster currently</legend>
+  <ul>
+  {{range .nodes}}
+    <li>{{.Name}}</li>
+  {{end}}
+  </ul>
+</fieldset>
 
 <h3>Photos</h3>
 
 <div class="row">
   <div class="column">
-    <img src="/public/soldat.jpg" alt="Snow" style="width:100%">
+    <h3>cooling:</h3>
+    <img src="/public/soldat.jpg" style="width:100%">
   </div>
   <div class="column">
-    <img src="/public/soldats.jpg" alt="Forest" style="width:100%">
+    <h3>cluster:</h3>
+    <img src="/public/soldats.jpg" style="width:100%">
   </div>
 </div>
+<div class="row">
+  <div class="column">
+    <h3>power usage per port under full load:</h3>
+    <img src="/public/ports.jpg" style="width:100%">
+  </div>
+  <div class="column">
+    <h3>power usage total:</h3>
+    <img src="/public/power.jpg" style="width:100%">
+  </div>
+</div>
+
+<h3>I have issues</h3>
+<ul>
+  <li><a href="https://github.com/k3s-io/k3s/issues/1608">https://github.com/k3s-io/k3s/issues/1608</a></li>
+  <li><a href="https://gist.github.com/shift/98f43d98ce5e47e374fa46bf67b6a3b1">https://gist.github.com/shift/98f43d98ce5e47e374fa46bf67b6a3b1</a></li>
+</ul>
