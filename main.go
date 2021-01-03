@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -47,14 +48,18 @@ func getBetterNodes() []BetterNode {
 	return nodes
 }
 
-func getTemp() string {
+func getTempString() string {
 	bytes, err := ioutil.ReadFile("/sys/class/thermal/thermal_zone0/temp")
 	if err != nil {
-		return err.Error()
+		bytes = []byte("-1000")
 	}
 
-	return string(bytes)
+	s := string(bytes)
+	i, _ := strconv.Atoi(s)
+	f := float64(i) / float64(1000)
+	return fmt.Sprintf("%.2f", f)
 }
+
 func main() {
 	r := gin.Default()
 	r.LoadHTMLGlob("./views/*")
@@ -62,7 +67,7 @@ func main() {
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
 			"hostname":    os.Getenv("HOSTNAME"),
-			"temperature": getTemp(),
+			"temperature": getTempString(),
 			"nodes":       getBetterNodes(),
 		})
 	})
