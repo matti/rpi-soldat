@@ -1,12 +1,38 @@
-<h1>This node: {{ .hostname }}</h1>
+<style>
+  /* Three image containers (use 25% for four, and 50% for two, etc) */
+  .column {
+    float: left;
+    width: 25%;
+    padding: 5px;
+  }
 
-<pre>
-my temperature: {{ .temperature }}c
-</pre>
+  /* Clear floats after image containers */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+</style>
 
-<h2>All nodes</h2>
+<h1>iPXE booted rpi4 flatcar</h1>
+
+<h2>My hostname: {{ .hostname }}</h1>
+<h2>My temperature now: {{ .temperature }}c</h2>
+
+<h3>All nodes in the cluster currently</h3>
 <ul>
 {{range .nodes}}
   <li>{{.Name}}</li>
 {{end}}
 </ul>
+
+<h3>Photos</h3>
+
+<div class="row">
+  <div class="column">
+    <img src="/public/soldat.jpg" alt="Snow" style="width:100%">
+  </div>
+  <div class="column">
+    <img src="/public/soldats.jpg" alt="Forest" style="width:100%">
+  </div>
+</div>

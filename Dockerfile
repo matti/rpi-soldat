@@ -8,4 +8,6 @@ RUN env ${opts} CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o rpi-s
 FROM scratch
 COPY --from=builder /app/rpi-soldat /rpi-soldat
 COPY --from=builder /app/views /views
+COPY --from=builder /app/public /public
+
 ENTRYPOINT [ "/rpi-soldat"]
