@@ -37,11 +37,18 @@
 
 <fieldset>
   <legend>Nodes in the cluster currently:</legend>
-  <ul>
+  <table border=1 cellpadding=5>
+    <tr>
+      <td>hostname</td><td>IP</td><td>OS</td><td>Age</td>
+    </tr>
+
   {{range .nodes}}
-    <li>{{.Name}}</li>
+    <tr>
+      <td>{{.Name}}</td><td>{{ .IP }}</td><td>{{ .OS }}</td><td>{{ .Age }}</td>
+    </tr>
   {{end}}
-  </ul>
+  </table>
+
 </fieldset>
 
 <h3>Photos</h3>

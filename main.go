@@ -9,6 +9,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -19,6 +20,9 @@ import (
 // BetterNode ...
 type BetterNode struct {
 	Name string
+	Age  string
+	IP   string
+	OS   string
 }
 
 func getBetterNodes() []BetterNode {
@@ -44,6 +48,9 @@ func getBetterNodes() []BetterNode {
 	for _, node := range nodeList.Items {
 		nodes = append(nodes, BetterNode{
 			Name: node.Name,
+			Age:  time.Now().Sub(node.ObjectMeta.CreationTimestamp.Time).String(),
+			IP:   node.Annotations["flannel.alpha.coreos.com/public-ip"],
+			OS:   node.Status.NodeInfo.OSImage,
 		})
 	}
 	return nodes
