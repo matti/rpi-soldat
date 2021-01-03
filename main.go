@@ -55,6 +55,8 @@ func getTempString() string {
 	}
 
 	s := string(bytes)
+	log.Println("read temp", s)
+
 	i, _ := strconv.Atoi(s)
 	f := float64(i) / float64(1000)
 	return fmt.Sprintf("%.2f", f)
