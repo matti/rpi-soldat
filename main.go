@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -51,12 +52,10 @@ func getBetterNodes() []BetterNode {
 func getTempString() string {
 	bytes, err := ioutil.ReadFile("/sys/class/thermal/thermal_zone0/temp")
 	if err != nil {
-		bytes = []byte("-1000")
+		bytes = []byte("-1000\n")
 	}
 
-	s := string(bytes)
-	log.Println("read temp", s)
-
+	s := strings.TrimSuffix(string(bytes), "\n")
 	i, _ := strconv.Atoi(s)
 	f := float64(i) / float64(1000)
 	return fmt.Sprintf("%.2f", f)
