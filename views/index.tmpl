@@ -18,11 +18,11 @@
 
 <ul>
   <li>All <a href="https://www.raspberrypi.org/products/raspberry-pi-4-model-b/">raspberry pi 4 8gb</a> nodes are powered with <a href="https://www.ui.com/unifi-switching/unifi-switch-8/">140W PoE switch</a></li>
-  <li>Nodes boot with <a href="https://ipxe.org/">iPXE</a> ...</li>
-  <li>... loading <a href="https://www.flatcar-linux.org/">flatcar linux</a> in <a href="https://kinvolk.io/docs/flatcar-container-linux/latest/bare-metal/booting-with-ipxe">memory</a> and setting hostname to <code>$now-$mac</code></li>
+  <li>Nodes boot with <a href="https://ipxe.org/">iPXE with http over internet</a> ...</li>
+  <li>... loading <a href="https://www.alpinelinux.org/">Alpine Linux</a> in <a href="https://wiki.alpinelinux.org/wiki/Installation#Diskless_Mode">memory</a> and setting hostname to <code>$now-$mac</code></li>
   <li>At the boot they join a <a href="https://k3s.io/">k3s<a> cluster master running in <a href="https://www.scaleway.com/en/">scaleway</a></li>
   <li>And then expose this page behind a NAT through flannel <a href="https://www.wireguard.com">wireguard vpn</a> with a public LoadBalancer </li>
-  <li>Every power cycle from the PoE switch starts the iPXE boot again making the node <strong>fresh</strong> again</h1>
+  <li>Every power cycle from the PoE switch starts the iPXE boot again making the node <strong>fresh</strong> again
 </ul>
 
 <fieldset>
